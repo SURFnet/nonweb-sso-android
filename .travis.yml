@@ -15,8 +15,12 @@ android:
     - build-tools-23.0.1
     - android-23
 
-notifications: email: false
+notifications:
+  email: false
 
-install: chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
 
-script: ./gradlew clean build
+install:
+  - chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
+
+script:
+  - ./gradlew clean build
