@@ -1,0 +1,30 @@
+# Built application files
+build
+
+# Lint files
+lint.xml
+
+# Files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+build
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# OSX files
+.DS_Store
+
+# Android Studio files
+.idea
+*.iml
+
+# Gradle files/folder
+.gradle
+
+# Signing config
+sample/gradle.properties
