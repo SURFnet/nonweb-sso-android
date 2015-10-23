@@ -1,4 +1,4 @@
-package nl.surfnet.nonweb.sso;
+package nl.surfnet.nonweb.sso.util;
 
 /*
  * Copyright 2015 SURFnet BV, The Netherlands

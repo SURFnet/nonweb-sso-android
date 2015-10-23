@@ -23,6 +23,8 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import nl.surfnet.nonweb.sso.util.Constants;
+
 /**
  * An asynchronous task that communicates with SURFnet to retrieve a request token.
  *

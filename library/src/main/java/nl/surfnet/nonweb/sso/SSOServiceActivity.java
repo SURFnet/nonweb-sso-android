@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import nl.surfnet.nonweb.sso.data.Credential;
+import nl.surfnet.nonweb.sso.util.Constants;
 
 
 /**
