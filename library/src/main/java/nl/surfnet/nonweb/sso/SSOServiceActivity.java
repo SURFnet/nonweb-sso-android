@@ -33,16 +33,16 @@ import nl.surfnet.nonweb.sso.data.Credential;
  *
  * @author W.Elsinga
  */
-public class SSOService extends Activity {
+public class SSOServiceActivity extends Activity {
 
-    static final String TAG = SSOService.class.getName();
+    static final String TAG = SSOServiceActivity.class.getName();
 
     private static SSOCallback _callback;
     private static String _consumerId;
 
     /**
      * An {@code SSOCallback} represents the callback handler to be invoked
-     * when an asynchronous {@link SSOService} call is completed or it fails
+     * when an asynchronous {@link SSOServiceActivity} call is completed or it fails
      */
     public interface SSOCallback {
 
@@ -78,13 +78,13 @@ public class SSOService extends Activity {
         }
         _callback = callback;
         _consumerId = consumerId;
-        context.startActivity(new Intent().setClass(context, SSOService.class));
+        context.startActivity(new Intent().setClass(context, SSOServiceActivity.class));
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        SSOService.this.finish();
+        SSOServiceActivity.this.finish();
     }
 
     @Override
@@ -103,6 +103,6 @@ public class SSOService extends Activity {
                 _callback.failure();
             }
         }
-        SSOService.this.finish();
+        SSOServiceActivity.this.finish();
     }
 }

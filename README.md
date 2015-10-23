@@ -13,10 +13,10 @@ Before you can use the library you need to have your `consumerId` registered by 
 
 1. Download the [latest version](https://github.com/SURFnet/nonweb-sso-android/releases) of the library.
 2. Add the library to your project as lib.
-3. Declare the `SSOService` class inside your `AndroidManifest.xml`: 
+3. Declare the `SSOServiceActivity` class inside your `AndroidManifest.xml`: 
  ```xml
 <activity 
-    android:name="nl.surfnet.nonweb.sso.SSOService" 
+    android:name="nl.surfnet.nonweb.sso.SSOServiceActivity" 
     android:launchMode="singleTask">
     <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
@@ -31,12 +31,12 @@ Before you can use the library you need to have your `consumerId` registered by 
 </activity>
 ```
 4. Add your `consumer secret` information inside the data section. 
-5. Inside your Activity call `SSOService.authorize` with your `consumerId`to start the authentication process.
+5. Inside your Activity call `SSOServiceActivity.authorize` with your `consumerId`to start the authentication process.
  ```java
- SSOService.authorize(v.getContext(), "4dca00da67c692296690e90c50c96b79", callback);
+ SSOServiceActivity.authorize(v.getContext(), "4dca00da67c692296690e90c50c96b79", callback);
 ```
 
-6. You can optionally provide a `SSOService.SSOCallback` to handle the authorize result
+6. You can optionally provide a `SSOServiceActivity.SSOCallback` to handle the authorize result
 
 ```java
 SSOCallback callback = new SSOCallback() {
