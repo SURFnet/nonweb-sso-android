@@ -1,13 +1,71 @@
-Android library for easy SURFnet SSO.
+SURFnet Android SSO Library
+===================================================
 
-## Overview
+Now you can easily integrate the [SURFnet](https://www.surf.nl) SSO process flow in your Android application by using this library.
+
+Do you want to see it in action, check out the sample app in this repository.
+
+
+HOW TO USE THE LIBRARY
+-----
+
+Before you can use the library you need to have your `consumerId` registered by SURFnet and have received your `consumer secret`.
+
+1. Download the [latest version](https://github.com/SURFnet/nonweb-sso-android/releases) of the library.
+2. Add the library to your project as lib.
+3. Declare the `SSOService` class inside your `AndroidManifest.xml`: 
+ ```xml
+<activity 
+    android:name="nl.surfnet.nonweb.sso.SSOService" 
+    android:launchMode="singleTask">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data
+            android:host="...."
+            android:scheme="...."/>
+    </intent-filter>
+</activity>
+```
+4. Add your `consumer secret` information inside the data section. 
+5. Inside your Activity call `SSOService.authorize` with your `consumerId`to start the authentication process.
+ ```java
+ SSOService.authorize(v.getContext(), "4dca00da67c692296690e90c50c96b79", callback);
+```
+
+6. You can optionally provide a `SSOService.SSOCallback` to handle the authorize result
+
+```java
+SSOCallback callback = new SSOCallback() {
+ 
+ @Override
+ public void success(Credential credential) {}
+ 
+ @Override
+ public void failure() {}
+};
+```
+
+ 
+[CHANGELOG](https://github.com/SURFnet/nonweb-sso-android/wiki/Changelog)
+-----
+
 Coming soon
 
 
-## [Changelog](https://github.com/SURFnet/nonweb-sso-android/wiki/Changelog)
-Coming soon
 
-## License
+DEVELOPED BY
+------------
+
+* SURFnet - [https://www.surf.nl](https://www.surf.nl)
+* Egeniq - [https://www.egeniq.com/](https://www.egeniq.com/)
+
+
+LICENSE
+-----
 
     Copyright 2015 SURFnet BV, The Netherlands
 

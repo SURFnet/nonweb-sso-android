@@ -1,0 +1,32 @@
+language: android
+
+sudo: false
+
+cache: false
+
+branches:
+  only:
+    - develop
+    - master
+
+jdk: oraclejdk7
+
+android:
+  components:
+  - platform-tools
+  - tools
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - build-tools-23.0.1
+  - android-23
+
+
+notifications:
+  email: false
+
+
+install:
+  - chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
+
+script:
+  - ./gradlew clean build

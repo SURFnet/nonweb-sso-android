@@ -15,6 +15,6 @@
  ~ limitations under the License.
 -->
 <resources>
-    <string name="app_name">SURFnet Android SSO Sample app</string>
+    <string name="app_name">SSO Sample app</string>
     <string name="authorize">Authorize</string>
 </resources>
