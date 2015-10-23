@@ -1,4 +1,6 @@
 language: java
+
+cache: false
 sudo: false
 
 branches:
@@ -8,49 +10,13 @@ branches:
 
 jdk: oraclejdk7
 
-env:
-  global:
-    - ANDROID_SDK_VERSION="r24.4.1"
-    - ANDROID_BUILD_TOOLS_VERSION="23.0.1"
-    - ANDROID_VERSION="23"
+android:
+  components:
+    - build-tools-23.0.1
+    - android-23
 
-notifications:
-  email: false
+notifications: email: false
 
-before_install:
-
-    # environment info
-  - gradle -v
-  - uname -a
-
-
-  # required libs for android build tools
-  # Update a system for ia32 libraries
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get update; fi
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
-
-  # for gradle output style
-  - export TERM=dumb
-
-  # gradle version
-  - ./gradlew -v
-
-  # install Android SDK
-  - wget http://dl.google.com/android/android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-  - tar -zxf android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-  - export ANDROID_HOME=`pwd`/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-
-  # manually set sdk.dir variable, according to local paths
-  - echo "sdk.dir=$ANDROID_HOME" > local.properties
-
-  # install additional required Android components.
-  - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
-  - echo yes | android update sdk --all --filter build-tools-${ANDROID_BUILD_TOOLS_VERSION} --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter android-${ANDROID_VERSION} --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
-
+install: chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
 
 script: ./gradlew clean build
