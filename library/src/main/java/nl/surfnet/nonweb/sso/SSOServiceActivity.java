@@ -48,9 +48,7 @@ public class SSOServiceActivity extends Activity {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Starting task to retrieve token.");
         }
-        new RequestTokenTask(this, //
-                _consumerId, //
-                _endpoint).execute();
+        new RequestTokenTask(this, _consumerId, _endpoint).execute();
     }
 
 

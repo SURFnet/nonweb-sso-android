@@ -25,11 +25,16 @@ import nl.surfnet.nonweb.sso.data.Credential;
  * @author W.Elsinga
  */
 public interface SSOCallback {
+
     /**
+     * Callback method when the call has been successful
+     *
      * @param credential {@link Credential}
      */
     void success(Credential credential);
 
-    /** */
+    /**
+     * Callback method when the call has failed
+     */
     void failure();
 }
