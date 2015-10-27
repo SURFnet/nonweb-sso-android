@@ -16,9 +16,9 @@
             </intent-filter>
         </activity>
 
-        <!--Add the SSOService to handle the request-->
+        <!--Add the SSOManager to handle the request-->
         <activity
-            android:name="nl.surfnet.nonweb.sso.SSOService"
+            android:name="nl.surfnet.nonweb.sso.SSOServiceActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
