@@ -16,19 +16,20 @@ package nl.surfnet.nonweb.sso;
  * limitations under the License.
  */
 
+import nl.surfnet.nonweb.sso.data.Credential;
+
 /**
- * Constants that are being used.
+ * An {@code SSOCallback} represents the callback handler to be invoked
+ * when an asynchronous call is completed or it fails.
+ *
+ * @author W.Elsinga
  */
-public final class Constants {
+public interface SSOCallback {
+    /**
+     * @param credential {@link Credential}
+     */
+    void success(Credential credential);
 
-    public static final String SCHEMA = "sfoauth";
-
-    public static final String URL = "https://nonweb.demo.surfconext.nl/php-oauth-as/authorize.php";
-    public static final String CLIENT_ID = "client_id=";
-    public static final String RESPONSE_TYPE = "response_type=token";
-    public static final String STATE = "state=demo";
-    public static final String SCOPE = "scope=authorize";
-
-    public static final String PARAM_AND = "&";
-
+    /** */
+    void failure();
 }
