@@ -23,6 +23,8 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import nl.surfnet.nonweb.sso.util.Constants;
+
 /**
  * An asynchronous task that communicates with SURFnet to retrieve a request token.
  *
@@ -34,16 +36,19 @@ public class RequestTokenTask extends AsyncTask<Void, Void, Void> {
 
     private Context _context;
     private String _consumerId;
+    private String _endpoint;
 
     /**
      * Default constructor
      *
      * @param context    Required to be able to start the intent to launch the browser.
      * @param consumerId The consumer id to be validated
+     * @param endpoint
      */
-    public RequestTokenTask(@NonNull Context context, @NonNull String consumerId) {
+    public RequestTokenTask(@NonNull Context context, @NonNull String consumerId, @NonNull String endpoint) {
         _context = context;
         _consumerId = consumerId;
+        _endpoint = endpoint;
     }
 
     /**
@@ -53,7 +58,7 @@ public class RequestTokenTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append(Constants.URL);
+            sb.append(_endpoint);
             sb.append("?" + Constants.CLIENT_ID);
             sb.append(_consumerId);
             sb.append(Constants.PARAM_AND + Constants.RESPONSE_TYPE);

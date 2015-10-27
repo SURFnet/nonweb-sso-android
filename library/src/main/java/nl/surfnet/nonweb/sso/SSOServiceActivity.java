@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import nl.surfnet.nonweb.sso.data.Credential;
+import nl.surfnet.nonweb.sso.util.Constants;
 
 
 /**
@@ -33,28 +34,13 @@ import nl.surfnet.nonweb.sso.data.Credential;
  *
  * @author W.Elsinga
  */
-public class SSOService extends Activity {
+public class SSOServiceActivity extends Activity {
 
-    static final String TAG = SSOService.class.getName();
+    static final String TAG = SSOServiceActivity.class.getName();
 
     private static SSOCallback _callback;
     private static String _consumerId;
-
-    /**
-     * An {@code SSOCallback} represents the callback handler to be invoked
-     * when an asynchronous {@link SSOService} call is completed or it fails
-     */
-    public interface SSOCallback {
-
-        /**
-         * @param credential {@link Credential}
-         */
-        void success(Credential credential);
-
-        /** */
-        void failure();
-
-    }
+    private static String _endpoint;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,29 +48,50 @@ public class SSOService extends Activity {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Starting task to retrieve token.");
         }
-        new RequestTokenTask(this, _consumerId).execute();
+        new RequestTokenTask(this, //
+                _consumerId, //
+                _endpoint).execute();
     }
 
 
     /**
      * Authorize the {@code consumerId}
      *
+     * @param context    the context
      * @param consumerId consumer ID to be validated
+     * @param endpoint   oauth-server endpoint
+     */
+    public static void authorize(@NonNull final Context context, //
+                                 @NonNull final String consumerId, //
+                                 @NonNull final String endpoint) {
+        authorize(context, consumerId, endpoint, null);
+    }
+
+    /**
+     * Authorize the {@code consumerId}
+     *
+     * @param context    the context
+     * @param consumerId consumer ID to be validated
+     * @param endpoint   oauth-server endpoint
      * @param callback   {@link SSOCallback} to invoke when the request completes or fails.
      */
-    public static void authorize(@NonNull final Context context, @NonNull final String consumerId, @Nullable final SSOCallback callback) {
+    public static void authorize(@NonNull final Context context, //
+                                 @NonNull final String consumerId, //
+                                 @NonNull final String endpoint, //
+                                 @Nullable final SSOCallback callback) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Authorize consumer " + consumerId);
         }
         _callback = callback;
         _consumerId = consumerId;
-        context.startActivity(new Intent().setClass(context, SSOService.class));
+        _endpoint = endpoint;
+        context.startActivity(new Intent().setClass(context, SSOServiceActivity.class));
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        SSOService.this.finish();
+        SSOServiceActivity.this.finish();
     }
 
     @Override
@@ -103,6 +110,6 @@ public class SSOService extends Activity {
                 _callback.failure();
             }
         }
-        SSOService.this.finish();
+        SSOServiceActivity.this.finish();
     }
 }
