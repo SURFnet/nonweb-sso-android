@@ -16,7 +16,7 @@ Before you can use the library you need to have your `consumerId` registered by 
 3. Declare the `SSOServiceActivity` class inside your `AndroidManifest.xml`: 
  ```xml
 <activity 
-    android:name="nl.surfnet.nonweb.sso.SSOServiceActivity" 
+    android:name="nl.surfnet.nonweb.sso.SSOManager" 
     android:launchMode="singleTask">
     <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
@@ -26,17 +26,17 @@ Before you can use the library you need to have your `consumerId` registered by 
 
         <data
             android:host="...."
-            android:scheme="...."/>
+            android:scheme="sfoauth"/>
     </intent-filter>
 </activity>
 ```
 4. Add your `consumer secret` information inside the data section. 
-5. Inside your Activity call `SSOServiceActivity.authorize` with your `consumerId`to start the authentication process.
+5. Inside your Activity call `SSOServiceActivity.authorize` with your `consumerId` and `endpoint` to start the authentication process.
  ```java
- SSOServiceActivity.authorize(v.getContext(), "4dca00da67c692296690e90c50c96b79", callback);
+ SSOServiceActivity.authorize(v.getContext(), consumerId, endpoint callback);
 ```
 
-6. You can optionally provide a `SSOServiceActivity.SSOCallback` to handle the authorize result
+6. You can optionally provide a `SSOCallback` to handle the authorize result
 
 ```java
 SSOCallback callback = new SSOCallback() {
