@@ -45,7 +45,7 @@ SSOCallback callback = new SSOCallback() {
  public void success(Credential credential) {}
  
  @Override
- public void failure() {}
+ public void failure(String message) {}
 };
 ```
 
@@ -53,7 +53,7 @@ SSOCallback callback = new SSOCallback() {
 [CHANGELOG](https://github.com/SURFnet/nonweb-sso-android/wiki/Changelog)
 -----
 
-Current version: 0.1.0
+Current version: 0.1.1
 
 
 

@@ -40,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void failure() {
+                    public void failure(String message) {
                         new AlertDialog.Builder(MainActivity.this)
                                 .setTitle(R.string.authorize)
-                                .setMessage("Couldn't get token")
+                                .setMessage(message)
                                 .show();
                     }
                 };
 
-                // Now call to authorize with a clientId/customerId, endpoint and the option callback
+                // Now call to authorize with a clientId/customerId, endpoint, schema and the option callback
                 SSOServiceActivity.authorize(v.getContext(), CLIENT_ID, SERVER_ENDPOINT, SCHEME, callback);
             }
         });
