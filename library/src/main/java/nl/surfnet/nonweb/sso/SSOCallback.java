@@ -35,6 +35,8 @@ public interface SSOCallback {
 
     /**
      * Callback method when the call has failed
+     *
+     * @param message message containing reason of failure
      */
-    void failure();
+    void failure(String message);
 }
