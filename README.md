@@ -53,7 +53,7 @@ SSOCallback callback = new SSOCallback() {
 [CHANGELOG](https://github.com/SURFnet/nonweb-sso-android/wiki/Changelog)
 -----
 
-Coming soon
+Current version: 0.1.0
 
 
 
