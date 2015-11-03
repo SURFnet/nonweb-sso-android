@@ -45,7 +45,7 @@ SSOCallback callback = new SSOCallback() {
  public void success(Credential credential) {}
  
  @Override
- public void failure() {}
+ public void failure(String message) {}
 };
 ```
 

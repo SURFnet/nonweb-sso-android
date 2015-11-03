@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import nl.surfnet.nonweb.sso.data.Credential;
+import nl.surfnet.nonweb.sso.util.StringUtil;
 
 
 /**
@@ -37,7 +38,18 @@ public class SSOServiceActivity extends Activity {
 
     static final String TAG = SSOServiceActivity.class.getName();
 
-    private static SSOCallback _callback;
+    private static SSOCallback _callback = new SSOCallback() {
+
+        @Override
+        public void success(Credential credential) {
+            Log.i(TAG, "has token: " + credential.getAccessToken());
+        }
+
+        @Override
+        public void failure(String message) {
+            Log.e(TAG, "fail: " + message);
+        }
+    };
     private static String _consumerId;
     private static String _endpoint;
     private static String _scheme;
@@ -84,11 +96,27 @@ public class SSOServiceActivity extends Activity {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Authorize consumer " + consumerId);
         }
-        _callback = callback;
-        _consumerId = consumerId;
-        _endpoint = endpoint;
-        _scheme = scheme;
-        context.startActivity(new Intent().setClass(context, SSOServiceActivity.class));
+        if (callback != null) {
+            _callback = callback;
+        }
+        String message = null;
+        if (StringUtil.isBlank(consumerId)) {
+            message = context.getString(R.string.no_consumer_id);
+        } else if (StringUtil.isBlank(endpoint)) {
+            message = context.getString(R.string.no_endpoint);
+        } else if (StringUtil.isBlank(scheme)) {
+            message = context.getString(R.string.no_schema);
+        }
+
+        if (StringUtil.isBlank(message)) {
+            _consumerId = consumerId;
+            _endpoint = endpoint;
+            _scheme = scheme;
+
+            context.startActivity(new Intent().setClass(context, SSOServiceActivity.class));
+        } else {
+            _callback.failure(message);
+        }
     }
 
     @Override
@@ -100,18 +128,17 @@ public class SSOServiceActivity extends Activity {
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (_callback != null) {
-            final Uri uri = intent.getData();
 
-            if (uri != null && _scheme.equals(uri.getScheme())) {
-                if (BuildConfig.DEBUG) {
-                    Log.d(TAG, "Callback received : " + uri);
-                    Log.d(TAG, "Retrieving Access Token");
-                }
-                _callback.success(new Credential(uri));
-            } else {
-                _callback.failure();
+        final Uri uri = intent.getData();
+
+        if (uri != null && _scheme.equals(uri.getScheme())) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "Callback received : " + uri);
+                Log.d(TAG, "Retrieving Access Token");
             }
+            _callback.success(new Credential(uri));
+        } else {
+            _callback.failure(getString(R.string.cannot_handle_token));
         }
         SSOServiceActivity.this.finish();
     }
