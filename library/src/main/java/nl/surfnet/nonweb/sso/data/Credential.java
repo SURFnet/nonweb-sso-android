@@ -31,7 +31,7 @@ public class Credential {
     /**
      * Default constructor.
      *
-     * @param uri @see android.net.Uri
+     * @param uri {@link android.net.Uri}
      */
     public Credential(@NonNull Uri uri) {
         _uri = uri;

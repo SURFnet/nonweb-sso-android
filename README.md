@@ -26,14 +26,14 @@ Before you can use the library you need to have your `consumerId` registered by 
 
         <data
             android:host="...."
-            android:scheme="sfoauth"/>
+            android:scheme="...."/>
     </intent-filter>
 </activity>
 ```
-4. Add your `consumer secret` information inside the data section. 
-5. Inside your Activity call `SSOServiceActivity.authorize` with your `consumerId` and `endpoint` to start the authentication process.
+4. Add your `consumer secret` as host and your `scheme` information inside the data section. 
+5. Inside your Activity call `SSOServiceActivity.authorize` with your `consumerId`, `endpoint` and `scheme` to start the authentication process.
  ```java
- SSOServiceActivity.authorize(v.getContext(), consumerId, endpoint callback);
+ SSOServiceActivity.authorize(v.getContext(), consumerId, endpoint, scheme, callback);
 ```
 
 6. You can optionally provide a `SSOCallback` to handle the authorize result
