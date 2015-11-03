@@ -21,8 +21,6 @@ package nl.surfnet.nonweb.sso.util;
  */
 public final class Constants {
 
-    public static final String SCHEMA = "sfoauth";
-
     public static final String CLIENT_ID = "client_id=";
     public static final String RESPONSE_TYPE = "response_type=token";
     public static final String STATE = "state=surfnet";

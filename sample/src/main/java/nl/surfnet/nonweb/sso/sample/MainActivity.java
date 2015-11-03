@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String SERVER_ENDPOINT = "https://nonweb.demo.surfconext.nl/php-oauth-as/authorize.php";
     public static final String CLIENT_ID = "4dca00da67c692296690e90c50c96b79";
+    public static final String SCHEME = "sfoauth";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 };
 
                 // Now call to authorize with a clientId/customerId, endpoint and the option callback
-                SSOServiceActivity.authorize(v.getContext(), CLIENT_ID, SERVER_ENDPOINT, callback);
+                SSOServiceActivity.authorize(v.getContext(), CLIENT_ID, SERVER_ENDPOINT, SCHEME, callback);
             }
         });
     }

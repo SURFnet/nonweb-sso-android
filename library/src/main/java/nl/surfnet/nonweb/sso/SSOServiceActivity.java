@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import nl.surfnet.nonweb.sso.data.Credential;
-import nl.surfnet.nonweb.sso.util.Constants;
 
 
 /**
@@ -41,6 +40,7 @@ public class SSOServiceActivity extends Activity {
     private static SSOCallback _callback;
     private static String _consumerId;
     private static String _endpoint;
+    private static String _scheme;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,11 +58,13 @@ public class SSOServiceActivity extends Activity {
      * @param context    the context
      * @param consumerId consumer ID to be validated
      * @param endpoint   oauth-server endpoint
+     * @param scheme     scheme
      */
     public static void authorize(@NonNull final Context context, //
                                  @NonNull final String consumerId, //
-                                 @NonNull final String endpoint) {
-        authorize(context, consumerId, endpoint, null);
+                                 @NonNull final String endpoint,
+                                 @NonNull final String scheme) {
+        authorize(context, consumerId, endpoint, scheme, null);
     }
 
     /**
@@ -71,11 +73,13 @@ public class SSOServiceActivity extends Activity {
      * @param context    the context
      * @param consumerId consumer ID to be validated
      * @param endpoint   oauth-server endpoint
+     * @param scheme     scheme
      * @param callback   {@link SSOCallback} to invoke when the request completes or fails.
      */
     public static void authorize(@NonNull final Context context, //
                                  @NonNull final String consumerId, //
                                  @NonNull final String endpoint, //
+                                 @NonNull final String scheme,
                                  @Nullable final SSOCallback callback) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Authorize consumer " + consumerId);
@@ -83,6 +87,7 @@ public class SSOServiceActivity extends Activity {
         _callback = callback;
         _consumerId = consumerId;
         _endpoint = endpoint;
+        _scheme = scheme;
         context.startActivity(new Intent().setClass(context, SSOServiceActivity.class));
     }
 
@@ -98,7 +103,7 @@ public class SSOServiceActivity extends Activity {
         if (_callback != null) {
             final Uri uri = intent.getData();
 
-            if (uri != null && uri.getScheme().equals(Constants.SCHEMA)) {
+            if (uri != null && _scheme.equals(uri.getScheme())) {
                 if (BuildConfig.DEBUG) {
                     Log.d(TAG, "Callback received : " + uri);
                     Log.d(TAG, "Retrieving Access Token");
