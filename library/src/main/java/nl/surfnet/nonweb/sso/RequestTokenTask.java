@@ -43,7 +43,7 @@ public class RequestTokenTask extends AsyncTask<Void, Void, Void> {
      *
      * @param context    Required to be able to start the intent to launch the browser.
      * @param consumerId The consumer id to be validated
-     * @param endpoint
+     * @param endpoint   oauth-server endpoint
      */
     public RequestTokenTask(@NonNull Context context, @NonNull String consumerId, @NonNull String endpoint) {
         _context = context;

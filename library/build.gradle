@@ -21,4 +21,58 @@ dependencies {
     compile 'com.android.support:support-annotations:23.1.0'
 }
 
+android.libraryVariants.all { variant ->
+    project.task("${variant.name.capitalize()}Javadoc", type: Javadoc) {
+
+        destinationDir = new File("$project.buildDir/javadoc/$variant.name")
+
+        source = variant.javaCompile.source
+
+        ext.androidJar = "${project.android.sdkDirectory}/platforms/${project.android.compileSdkVersion}/android.jar"
+        classpath = project.files(variant.javaCompile.classpath.files) + project.files(ext.androidJar)
+
+        options {
+            linksOffline("http://d.android.com/reference", "${project.android.sdkDirectory}/docs/reference")
+            links("http://docs.oracle.com/javase/7/docs/api/");
+            setMemberLevel(JavadocMemberLevel.PACKAGE)
+            docEncoding = 'UTF-8'
+            encoding = 'UTF-8'
+            charSet = 'UTF-8'
+        }
+
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+
+    project.task("generate${variant.name.capitalize()}JavadocJar", type: Jar, dependsOn: "${variant.name.capitalize()}Javadoc") {
+        classifier 'javadoc'
+
+        description = 'Assembles a jar archive containing the generated Javadoc API documentation of $variant.name.'
+
+        destinationDir = new File("$project.buildDir/libs/")
+
+        exclude '**/BuildConfig.class'
+        exclude '**/R.class'
+
+        from "$project.buildDir/javadoc/$variant.name"
+    }
+
+    project.task("generate${variant.name.capitalize()}SourcesJar", type: Jar) {
+        classifier = 'sources'
+
+        description = 'Assembles a jar archive containing the main sources of $variant.name.'
+
+        destinationDir = new File("$project.buildDir/libs/")
+
+        // exclude generated files
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+
+        from variant.javaCompile.source
+    }
+}
+
+
+
+
 
