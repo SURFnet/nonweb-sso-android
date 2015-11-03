@@ -28,15 +28,12 @@ public final class StringUtil {
     }
 
     /**
-     * <p>Checks if a String is whitespace, empty ("") or null.</p>
-     * <p/>
-     * <pre>
+     * Checks if a String is whitespace, empty ("") or null.
      * StringUtils.isBlank(null)      = true
      * StringUtils.isBlank("")        = true
      * StringUtils.isBlank(" ")       = true
      * StringUtils.isBlank("wiebe")     = false
      * StringUtils.isBlank("  wiebe  ") = false
-     * </pre>
      *
      * @param str the String to check, may be null
      * @return <code>true</code> if the String is null, empty or whitespace
