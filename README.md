@@ -5,7 +5,7 @@ Now you can easily integrate the [SURFnet](https://www.surf.nl) SSO process flow
 
 Do you want to see it in action, check out the sample app in this repository.
 
-For an overview of the authentication SDKs, see [this page](https://github.com/SURFnet/nonweb-demo/wiki).
+For background information and investigation into the best practices that were implemented in this SDK, see [this page](https://github.com/SURFnet/nonweb-demo/wiki).
 
 For a detailed investigation of the Android authentication possibilities, see [this page](https://github.com/SURFnet/nonweb-demo/wiki/Android).
 
