@@ -19,4 +19,5 @@
     <string name="no_endpoint">No endpoint provided</string>
     <string name="no_schema">No scheme provided</string>
     <string name="cannot_handle_token">Couldn\'t handle token</string>
+    <string name="state_error">Authorization state different between request and callback</string>
 </resources>

@@ -53,6 +53,7 @@ public class SSOServiceActivity extends Activity {
     private static String _consumerId;
     private static String _endpoint;
     private static String _scheme;
+    private static String _state;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class SSOServiceActivity extends Activity {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "Starting task to retrieve token.");
         }
-        new RequestTokenTask(this, _consumerId, _endpoint).execute();
+        new RequestTokenTask(this, _consumerId, _endpoint, _state).execute();
     }
 
 
@@ -112,6 +113,7 @@ public class SSOServiceActivity extends Activity {
             _consumerId = consumerId;
             _endpoint = endpoint;
             _scheme = scheme;
+            _state = StringUtil.generateSessionString();
 
             context.startActivity(new Intent().setClass(context, SSOServiceActivity.class));
         } else {
@@ -132,11 +134,16 @@ public class SSOServiceActivity extends Activity {
         final Uri uri = intent.getData();
 
         if (uri != null && _scheme.equals(uri.getScheme())) {
+            Credential credential = new Credential(uri);
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, "Callback received : " + uri);
                 Log.d(TAG, "Retrieving Access Token");
             }
-            _callback.success(new Credential(uri));
+            if (_state.equals(credential.getSessionIdentifier())) {
+                _callback.success(credential);
+            } else {
+                _callback.failure(getString(R.string.state_error));
+            }
         } else {
             _callback.failure(getString(R.string.cannot_handle_token));
         }
