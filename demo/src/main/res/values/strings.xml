@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SURFnet SSO Demo</string>
+    <string name="login">LOGIN</string>
+    <string name="error_title">Unexpected error :(</string>
+    <string name="token_label">TOKEN</string>
+</resources>
