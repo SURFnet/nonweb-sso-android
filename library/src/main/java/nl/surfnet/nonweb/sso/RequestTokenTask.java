@@ -37,6 +37,7 @@ public class RequestTokenTask extends AsyncTask<Void, Void, Void> {
     private Context _context;
     private String _consumerId;
     private String _endpoint;
+    private String _state;
 
     /**
      * Default constructor
@@ -44,11 +45,13 @@ public class RequestTokenTask extends AsyncTask<Void, Void, Void> {
      * @param context    Required to be able to start the intent to launch the browser.
      * @param consumerId The consumer id to be validated
      * @param endpoint   oauth-server endpoint
+     * @param state   session identifier
      */
-    public RequestTokenTask(@NonNull Context context, @NonNull String consumerId, @NonNull String endpoint) {
+    public RequestTokenTask(@NonNull Context context, @NonNull String consumerId, @NonNull String endpoint, @NonNull String state) {
         _context = context;
         _consumerId = consumerId;
         _endpoint = endpoint;
+        _state = state;
     }
 
     /**
@@ -63,6 +66,8 @@ public class RequestTokenTask extends AsyncTask<Void, Void, Void> {
             sb.append(_consumerId);
             sb.append(Constants.PARAM_AND + Constants.RESPONSE_TYPE);
             sb.append(Constants.PARAM_AND + Constants.STATE);
+            sb.append("=");
+            sb.append(_state);
             sb.append(Constants.PARAM_AND + Constants.SCOPE);
 
             String url = sb.toString();

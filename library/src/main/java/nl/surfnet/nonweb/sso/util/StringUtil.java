@@ -16,10 +16,16 @@ package nl.surfnet.nonweb.sso.util;
  * limitations under the License.
  */
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
 /**
  * Utility class for methods to handle String.
  */
 public final class StringUtil {
+
+    //SecureRandom objects are expensive to initialize, keep one around and reuse it.
+    private static SecureRandom _random = new SecureRandom();
 
     /**
      * Default constructor
@@ -51,4 +57,12 @@ public final class StringUtil {
         return true;
     }
 
+    /**
+     * Generate strings to be used as session identifiers.
+     *
+     * @return
+     */
+    public static String generateSessionString() {
+        return new BigInteger(130, _random).toString(32);
+    }
 }

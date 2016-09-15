@@ -23,7 +23,7 @@ public final class Constants {
 
     public static final String CLIENT_ID = "client_id=";
     public static final String RESPONSE_TYPE = "response_type=token";
-    public static final String STATE = "state=surfnet";
+    public static final String STATE = "state";
     public static final String SCOPE = "scope=authorize";
 
     public static final String PARAM_AND = "&";

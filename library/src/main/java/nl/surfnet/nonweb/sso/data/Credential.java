@@ -18,7 +18,8 @@ package nl.surfnet.nonweb.sso.data;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
+
+import nl.surfnet.nonweb.sso.util.Constants;
 
 /**
  * Data Class containing essential .
@@ -34,7 +35,7 @@ public class Credential {
      * @param uri {@link android.net.Uri}
      */
     public Credential(@NonNull Uri uri) {
-        _uri = uri;
+        _uri = Uri.parse(uri.toString().replace("#access_token", "?access_token"));
     }
 
 
@@ -44,12 +45,15 @@ public class Credential {
      * @return access token
      */
     public String getAccessToken() {
-        String accessToken = null;
-        String url = _uri.toString();
-        if (!TextUtils.isEmpty(url)) {
-            Uri uri = Uri.parse(url.replace("#access_token", "?access_token"));
-            accessToken = uri.getQueryParameter("access_token");
-        }
-        return accessToken;
+        return _uri.getQueryParameter("access_token");
+    }
+
+    /**
+     * Returns the session identifier received by the authorization server.
+     *
+     * @return state
+     */
+    public String getSessionIdentifier() {
+        return _uri.getQueryParameter(Constants.STATE);
     }
 }
